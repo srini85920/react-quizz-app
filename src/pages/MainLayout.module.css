@@ -1,0 +1,21 @@
+/* src/pages/MainLayout.module.css */
+
+.header {
+  display: flex;
+  justify-content: space-between; /* Pushes title and toggle to opposite ends */
+  align-items: center; /* Vertically aligns them */
+  padding: 1rem 2rem;
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.5rem; /* A more modern, smaller header font size */
+  color: var(--primary-text);
+}
+
+.mainContent {
+  padding: 2rem; /* Add some padding around your page content */
+}

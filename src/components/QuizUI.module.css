@@ -1,0 +1,117 @@
+.quizContainer {
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: 2.5rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  text-align: left;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  color: var(--secondary-text);
+  background-color: var(--primary-bg);
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+}
+
+.questionCount {
+  font-weight: 500;
+}
+
+.timer {
+  font-weight: bold;
+  color: var(--accent-color);
+}
+
+.progressBarContainer {
+  width: 100%;
+  background-color: var(--border-color);
+  border-radius: 999px;
+  height: 10px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.progressBar {
+  height: 100%;
+  background-color: var(--accent-color);
+  transition: width 0.4s ease-in-out;
+}
+
+.questionWrapper {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.questionText {
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: center;
+  margin: 0 auto 3rem auto;
+  max-width: 80%;
+}
+
+.optionsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+/* --- THIS IS THE DEFINITIVE FIX FOR THE INVISIBLE OPTIONS --- */
+.optionBtn {
+  text-align: center;
+  background-color: var(--card-bg);
+  color: var(--primary-text);
+  border: 2px solid var(--border-color);
+  padding: 1rem;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.optionBtn:hover {
+  border-color: var(--accent-color);
+  background-color: #f0f9ff; /* A light blue tint on hover */
+  transform: translateY(-2px);
+}
+
+.optionBtn.selected {
+  background-color: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+  box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+}
+/* --- END OF FIX --- */
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid var(--border-color);
+  padding-top: 1.5rem;
+  margin-top: 2rem;
+}

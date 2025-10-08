@@ -1,0 +1,111 @@
+/* src/pages/DashboardPage.module.css */
+
+.dashboardContainer {
+  padding: 1.5rem;
+  /* max-width: 900px;  <-- REMOVED */
+  /* margin: 0 auto;     <-- REMOVED */
+}
+.title {
+  text-align: center;
+  color: #2c3e50;
+}
+
+.subtitle {
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+  color: #34495e;
+  border-bottom: 2px solid #ecf0f1;
+  padding-bottom: 0.5rem;
+}
+
+.summaryChart, .sessionList {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.sessionList {
+  padding: 0;
+  overflow: hidden; /* For border-radius */
+}
+
+.sessionItem {
+  border-bottom: 1px solid #ecf0f1;
+}
+.sessionItem:last-child {
+  border-bottom: none;
+}
+
+.sessionRow {
+  display: grid;
+  grid-template-columns: 1fr auto auto auto;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.sessionRow:hover {
+  background-color: #f9f9f9;
+}
+
+.sessionTopic {
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.sessionScore {
+  font-weight: bold;
+  font-size: 1.1rem;
+  background-color: #ecf0f1;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+}
+
+.sessionDate {
+  font-size: 0.9rem;
+  color: #7f8c8d;
+}
+
+.toggleIcon {
+  font-size: 0.8rem;
+  color: #95a5a6;
+}
+
+.sessionDetails {
+  padding: 1.5rem;
+  background-color: #f9fafb;
+  border-top: 1px solid #ecf0f1;
+}
+
+.feedbackBlock {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.feedbackBlock h4 {
+  margin-top: 0;
+}
+
+.chartBlock h4 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 4rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+/* Make sure these are defined for the bar chart colors */
+:root {
+  --correct-color: #28a745;
+  --incorrect-color: #dc3545;
+}

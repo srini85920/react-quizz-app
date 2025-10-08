@@ -1,0 +1,23 @@
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0 2rem 0;
+  gap: 0.5rem;
+}
+.navLink {
+  padding: 0.6rem 1.25rem;
+  text-decoration: none;
+  color: var(--secondary-text);
+  font-weight: 500;
+  border-radius: 999px;
+  transition: all 0.2s ease-in-out;
+}
+.navLink:hover {
+  background-color: var(--border-color);
+  color: var(--primary-text);
+}
+.navLink.active {
+  color: white;
+  background-color: var(--accent-color);
+}

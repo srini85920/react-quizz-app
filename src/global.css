@@ -1,0 +1,46 @@
+:root {
+  --primary-color: #9068be; /* Your new vibrant blue */
+  /* ... other colors ... */
+}
+
+/* src/global.css */
+
+/* 1. Define Light Mode (Default) and Dark Mode colors */
+:root {
+  --primary-color: #0e0fed;      /* Your vibrant blue */
+  --secondary-color: #0f2862;     /* Your dark blue */
+  
+  --background-color: #f4f7f9;
+  --card-bg: #ffffff;
+  --primary-text: #2c3e50;
+  --secondary-text: #7f8c8d;
+  --border-color: #e0e0e0;
+  
+  --correct-color: #28a745;
+  --incorrect-color: #dc3545;
+  
+  --border-radius: 8px;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme='dark'] {
+  --primary-color: #5893f5;      /* A lighter blue for better contrast in dark mode */
+  --secondary-color: #0f2862;
+  
+  --background-color: #121212;
+  --card-bg: #1e1e1e;
+  --primary-text: #e0e0e0;
+  --secondary-text: #a0a0a0;
+  --border-color: #333333;
+}
+
+/* 2. Apply some base styles to the whole app */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--background-color);
+  color: var(--primary-text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ... keep your other global styles like .button ... */
