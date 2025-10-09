@@ -4,6 +4,7 @@ import { generateFeedbackFromGemini, getExplanationFromGemini } from '../service
 import Loader from '../components/Loader.jsx';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, CartesianGrid } from 'recharts';
 import styles from './ResultsPage.module.css';
+import { generateFeedback, getLocalExplanation } from'../services/aiService.js';
 
 const ResultsPage = () => {
   const location = useLocation();
@@ -25,51 +26,24 @@ const ResultsPage = () => {
     return { topic: topicName, finalScore: `${score}/${questions.length}`, resultsArray: detailedResults };
   }, [questions, userAnswers, timings, topicName]);
 // In ResultsPage.jsx
+// In src/pages/quizzes/ResultsPage.jsx
 
-useEffect(() => {
-  // 1. Convert your performance data into a clear string for the AI.
-  const promptString = `
-    Analyze the following quiz performance data and provide feedback in JSON format.
-    The user took a quiz on the topic "${performanceReport.topic}".
-    Their final score was ${performanceReport.finalScore}.
+  useEffect(() => {
+    const generatedFeedback = generateFeedback(performanceReport);
+    setFeedback(generatedFeedback);
+    setIsLoading(false);
+
+    // ... your localStorage logic ...
+  }, [performanceReport]);
+
+  const handleExplainClick = (result, index) => {
+    const question = questions[index];
+    const incorrectAnswer = userAnswers[index] !== null ? question.options[userAnswers[index]] : "No answer selected";
+    const correctAnswer = question.options[question.correctOptionIndex];
     
-    Here is a breakdown of their answers:
-    ${JSON.stringify(performanceReport.resultsArray, null, 2)}
-
-    Please provide your response as a single JSON object with two keys:
-    1. "overallFeedback": A string containing brief, encouraging overall feedback (2-3 sentences).
-    2. "questionFeedback": An array of objects, one for each question. Each object should have a single key "feedback" containing a 1-sentence analysis of the user's performance on that specific question (e.g., "Correctly answered, and quickly too!" or "This was incorrect; the topic seems to be a challenge.").
+    const res = getLocalExplanation(result.question, correctAnswer, incorrectAnswer);
     
-    Do not include any text or formatting outside of the main JSON object.
-  `;
-
-  // 2. Call the service with the new, detailed prompt string.
-  generateFeedbackFromGemini(promptString) // We now send the string, not the object
-    .then(response => {
-      // The 'response' will now be a JSON object, ready to be used.
-      setFeedback(response);
-      setIsLoading(false);
-      
-      // Save the combined report and AI feedback to local storage
-      const newResult = { ...performanceReport, ...response, date: new Date().toISOString() };
-      const history = JSON.parse(localStorage.getItem('quizHistory')) || [];
-      history.push(newResult);
-      localStorage.setItem('quizHistory', JSON.stringify(history));
-    })
-    .catch(error => {
-      console.error("Failed to fetch or parse AI feedback:", error);
-      setFeedback({ overallFeedback: "Sorry, AI feedback could not be generated." });
-      setIsLoading(false);
-    });
-}, [performanceReport]);
-  const handleExplainClick = async (result, index) => {
-    setIsExplainLoading(true);
-    setExplanation({ text: '', index });
-    const incorrectAnswer = questions[index].options[userAnswers[index]];
-    const correctAnswer = questions[index].options[questions[index].correctOptionIndex];
-    const res = await getExplanationFromGemini(result.question, correctAnswer, incorrectAnswer);
     setExplanation({ text: res.explanation, index });
-    setIsExplainLoading(false);
   };
   
   const scoreNum = parseInt(performanceReport.finalScore.split('/')[0]);
@@ -93,19 +67,24 @@ useEffect(() => {
             <div className={styles.rightColumn}>
               <div className={styles.chartContainer}>
                 <h4>Performance Breakdown</h4>
-                <ResponsiveContainer width="100%" height={300}>
-                  <BarChart data={performanceReport.resultsArray} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
-                    <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                  <XAxis dataKey="question" tickFormatter={(tick, index) => `Q${index + 1}`} />
-                    <YAxis label={{ value: 'Time (s)', angle: -90, position: 'insideLeft' }} />
-                    <Tooltip />
-                    <Bar dataKey="timeTaken" radius={[4, 4, 0, 0]}>
-                      {performanceReport.resultsArray.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.verdict === 'Correct' ? 'var(--correct-color)' : 'var(--incorrect-color)'} />
-                      ))}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
+// In src/pages/quizzes/ResultsPage.jsx
+
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart data={performanceReport.resultsArray} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke={ "var(--border-color)" } vertical={false} />
+                  <XAxis dataKey="question" tickFormatter={(tick, index) => `Q${index + 1}`} stroke="var(--secondary-text)" />
+                  <YAxis label={{ value: 'Time (s)', angle: -90, position: 'insideLeft', fill: 'var(--secondary-text)' }} stroke="var(--secondary-text)" />
+                  <Tooltip 
+                    contentStyle={{ backgroundColor: 'var(--card-bg)', border: '1px solid var(--border-color)' }}
+                    cursor={{ fill: 'rgba(255, 255, 255, 0.1)' }}
+                  />
+                  <Bar dataKey="timeTaken" radius={[4, 4, 0, 0]}>
+                    {performanceReport.resultsArray.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.verdict === 'Correct' ? 'var(--correct-color)' : 'var(--incorrect-color)'} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
               </div>
             </div>
           </div>

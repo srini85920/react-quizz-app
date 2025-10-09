@@ -44,3 +44,50 @@ body {
 }
 
 /* ... keep your other global styles like .button ... */
+/* src/global.css */
+
+/* Define your new, permanent dark mode theme */
+:root {
+  --primary-color: #5893f5;      /* A lighter blue for better contrast in dark mode */
+  --secondary-color: #0f2862;     /* Your dark blue for accents */
+  
+  /* Dark Mode Palette */
+  --background-color: #121212;  /* Main page background */
+  --card-bg: #1e1e1e;           /* Background for cards, modals, etc. */
+  --primary-text: #e0e0e0;      /* Main text color (light gray) */
+  --secondary-text: #a0a0a0;    /* Lighter text for metadata, placeholders */
+  --border-color: #333333;      /* Borders for cards and inputs */
+  
+  --correct-color: #28a745;      /* Green for correct answers */
+  --incorrect-color: #dc3545;    /* Red for incorrect answers */
+  
+  --border-radius: 8px;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Apply base styles to the whole app */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--background-color);
+  color: var(--primary-text);
+}
+
+/* Style for generic buttons to use the new theme */
+.button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary-color);
+  color: #121212; /* Dark text on the light blue button */
+  border: none;
+  border-radius: var(--border-radius);
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+
+.button:hover {
+  filter: brightness(90%);
+}
