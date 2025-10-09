@@ -1,12 +1,20 @@
-So this is a react based quiz-ffedback web project 
+1. Project Overview
+This project is a React-based quiz-feedback application built using Low-Level System Design (LLD) principles. It provides an interactive quiz experience, dynamically generates questions and feedback, and follows SOLID principles for maintainable and scalable code.
+Key Features:
+Topic-based quizzes (e.g., Art, Computers, History, Sports)
 
-This whole system follows the concept of Low Level System Designs with following all the necessary SOLID principles ,there will be cases discussed
 
-The Project layout is simple, there is a src folder where my react files along with javascripts files are there
+AI-assisted question generation and feedback
 
-The layout
 
-react-quizz-app/
+Interactive UI with navigation, progress bars, and timers
+
+
+Modular, reusable components for scalability
+
+2.Project Layout
+
+quiz-feed-back-project/
 ├── node_modules/
 ├── public/
 │   └── index.html
@@ -27,8 +35,7 @@ react-quizz-app/
 │   │   ├── ScoreSummaryModal.jsx 
 │   │   └── Timer.jsx 
 │   │
-│   ├── context/
-│   │   ├── ThemeContext.jsx      
+│   ├── contexts  
 │   │   └── QuizContext.jsx 
 │   │
 │   ├── data/ 
@@ -72,17 +79,103 @@ react-quizz-app/
 └── vite.config.js
 
 
-Solid principle ,taking about is 
 
-S-Single Responsiblity is followed by all the file as there only single responsibility for each files
+3. Design Principles (SOLID)
+S – Single Responsibility Principle (SRP):
+ Each file/component has a single responsibility.
+Example: QuestionCard.jsx only renders questions; Timer.jsx only manages countdown.
 
-O-Open CLosed Principles ,so every files is closed for modification and seperate files can be added without any inference
 
-L-Liskov Subsitution Principle ,here no file neccesaryily need to extend the functionalites of the parent they are free to use and can subsitute the parent class
+O – Open/Closed Principle (OCP):
+ Components are open for extension, closed for modification.
+Example: Adding new quiz categories does not require modifying existing code.
 
-I-Interface segration Principle no class is bulk they have only one responsiblity
 
-D-The Dependency Inversion Principle (DIP) , the high-level modules should depend on abstractions (like interfaces), not on low-level modules, and vice-versa, here it is properly followed 
+L – Liskov Substitution Principle (LSP):
+ Components can be replaced without breaking functionality.
+Example: QuizUI.jsx works with any quiz page (ArtQuizPage, ComputersQuizPage, etc.)
 
-Here i have API from https://opentdb.com/api_category.php  Open DB a free source for questions on different topics  and i have predifend API for question feedback as well as question wise feedback 
+
+I – Interface Segregation Principle (ISP):
+ Components/classes are small and focused, exposing only necessary functionality.
+Example: FeedbackGenerator.jsx only generates feedback; it does not handle navigation.
+
+
+D – Dependency Inversion Principle (DIP):
+ High-level modules depend on abstractions, not concrete implementations.
+Example: useQuizLogic.js interacts with aiService.js via abstracted methods, allowing services to be swapped independently.
+
+
+
+4. High-Level Design & Scalability
+Routing & Page Structure:
+Each quiz category has a separate route for modularity:
+
+
+/quizzes/art
+/quizzes/computers
+/quizzes/history
+/quizzes/sports
+
+Component Reusability:
+Components like QuestionCard, QuizUI, ProgressBar, and Timer are reusable across all quizzes.
+
+
+Service Abstraction:
+aiService.js → Handles AI question generation
+
+
+geminiService.js → Handles question feedback generation
+
+
+Context & Hooks:
+QuizContext.jsx → Manages global quiz state
+
+
+useQuizLogic.js → Handles quiz behavior logic (next/previous, score updates, timers)
+
+
+Scalability:
+Adding new quizzes or features requires minimal code changes.
+
+
+New quiz pages can be registered without modifying existing navigation or logic.
+
+
+
+5. Data Flow & Integration
+Question Source:
+Fetched from Open Trivia DB
+
+
+Feedback Source:
+Predefined APIs provide question-wise feedback and overall quiz feedback
+
+
+State Management:
+Managed via QuizContext and custom hooks
+
+
+Ensures UI components remain stateless and purely presentational
+
+
+
+6. Summary
+This project demonstrates:
+Strict adherence to SOLID principles
+
+
+Modular, reusable, and maintainable architecture
+
+
+Scalable design for adding new quizzes and features
+
+
+Separation of concerns (UI, state, services)
+
+
+Extensibility for future AI or API integration
+
+
+
 
