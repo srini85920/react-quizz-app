@@ -109,3 +109,37 @@
   --correct-color: #28a745;
   --incorrect-color: #dc3545;
 }
+
+.emptyState {
+  text-align: center;
+  padding: 4rem;
+  background: #fffbeb; /* light yellow background to make it pop */
+  border-radius: 8px;
+  border: 1px solid #ffe58f; /* subtle border for emphasis */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* soft shadow for depth */
+}
+
+.emptyState h2 {
+  color: #d97706; /* darker yellow / amber for title */
+  margin-bottom: 1rem;
+}
+
+.emptyState p {
+  color: #92400e; /* slightly darker for text */
+  font-weight: 500;
+}
+
+.emptyState .button {
+  margin-top: 1.5rem;
+  background-color: #fbbf24; /* golden button */
+  color: #ffffff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.emptyState .button:hover {
+  background-color: #f59e0b; /* darker on hover */
+}
