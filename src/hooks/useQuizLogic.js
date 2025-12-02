@@ -6,20 +6,19 @@ export const useQuizLogic = (questions, topicName) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState({});
   const [timings, setTimings] = useState({});
-  const [timer, setTimer] = useState(15); // Add a visual timer state
+  const [timer, setTimer] = useState(15);
   const questionStartTimeRef = useRef(null);
 
   useEffect(() => {
-    questionStartTimeRef.current = Date.now(); // Set initial start time
+    questionStartTimeRef.current = Date.now(); 
   }, []);
-
-  // Countdown timer effect
+  //this for timeing 
   useEffect(() => {
-    if (currentIndex >= questions.length) return; // Stop timer when quiz is done
+    if (currentIndex >= questions.length) return; 
     const interval = setInterval(() => {
       setTimer(prev => {
         if (prev === 1) {
-          handleNext(); // Auto-advance when timer runs out
+          handleNext(); 
           return 15;
         }
         return prev - 1;
@@ -41,7 +40,7 @@ export const useQuizLogic = (questions, topicName) => {
       setTimings(newTimings);
       setCurrentIndex(currentIndex + 1);
       questionStartTimeRef.current = Date.now();
-      setTimer(15); // Reset visual timer
+      setTimer(15);
     } else {
       navigate('/results', { state: { questions, userAnswers, timings: newTimings, topicName } });
     }
