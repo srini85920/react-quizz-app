@@ -2,10 +2,6 @@ import React from 'react';
 import styles from './QuizUI.module.css';
 
 const QuizUI = ({ topicName, questions, currentIndex, userAnswers, timer, handleAnswer, handleNext, handlePrev }) => {
-
-  // --- THIS IS THE FIX ---
-  // If questions haven't loaded yet or are empty, return a simple loading message.
-  // This prevents the component from crashing.
   if (!questions || questions.length === 0) {
     return (
       <div className={styles.quizContainer}>
@@ -13,11 +9,7 @@ const QuizUI = ({ topicName, questions, currentIndex, userAnswers, timer, handle
       </div>
     );
   }
-  // --- END OF FIX ---
-
   const currentQuestion = questions[currentIndex];
-  
-  // A second safety check in case the current index is somehow invalid
   if (!currentQuestion) {
     return (
       <div className={styles.quizContainer}>
@@ -57,7 +49,6 @@ const QuizUI = ({ topicName, questions, currentIndex, userAnswers, timer, handle
         </div>
       </div>
 
-      {/* Navigation buttons should be inside the main container */}
       <div className={styles.navigation}>
         <button 
           onClick={handlePrev} 
