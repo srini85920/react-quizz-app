@@ -13,7 +13,7 @@ const ResultsPage = () => {
   const [explanation, setExplanation] = useState({ text: '', index: null });
   const [isExplainLoading, setIsExplainLoading] = useState(false);
 
-  if (!location.state) { /* ... guard clause ... */ }
+  if (!location.state) 
   const { questions, userAnswers, timings, topicName } = location.state;
 
   const performanceReport = useMemo(() => {
@@ -25,15 +25,13 @@ const ResultsPage = () => {
     });
     return { topic: topicName, finalScore: `${score}/${questions.length}`, resultsArray: detailedResults };
   }, [questions, userAnswers, timings, topicName]);
-// In ResultsPage.jsx
-// In src/pages/quizzes/ResultsPage.jsx
+
 
   useEffect(() => {
     const generatedFeedback = generateFeedback(performanceReport);
     setFeedback(generatedFeedback);
     setIsLoading(false);
-
-    // ... your localStorage logic ...
+    //a incase any clean ups 
   }, [performanceReport]);
 
   const handleExplainClick = (result, index) => {
